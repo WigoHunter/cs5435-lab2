@@ -11,12 +11,15 @@ from app.models.user import (
 
 from app.models.session import (
     logged_in,
+    get_session_by_username
 )
 
 
 @post('/pay')
 @logged_in
 def do_payment(db, session):
+    payment_token = str(request.forms.get('token'))
+
     sender = get_user(db, session.get_username())
     recipient = db.execute(
         "SELECT * FROM users WHERE users.username='{}' LIMIT 1 OFFSET 0".format(
@@ -37,6 +40,9 @@ def do_payment(db, session):
     elif (recipient['username'] == sender.username):
         response.status = 400
         error = "Cannot pay self."
+    elif (payment_token != session.get_id()):
+        response.status = 400
+        error = "Invalid payment token."
     else:
         sender.debit_coins(payment_amount)
         db.execute(

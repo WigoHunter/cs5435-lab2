@@ -1,14 +1,11 @@
-{% extends "base.html" %}
-
-{% block title %}Profile{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %}Profile{% endblock %} {% block
+content %}
 <div class="profile-container">
   <h1 class="profile-header">{{ user.username }}</h1>
   <div>
     <strong>Coins:</strong> {{ user.coins }}
-    <br>
-    <strong>About Me:</strong><br>{{ user.aboutme}}
+    <br />
+    <strong>About Me:</strong><br />{{ user.aboutme }}
   </div>
 </div>
 
@@ -24,11 +21,14 @@
       <div class="form-label">Amount:</div>
       <div class="form-input"><input name="amount" type="number" /></div>
     </div>
-    <input class="form-button" type="submit" value="Pay"/>
+    <input class="form-button" type="submit" value="Pay" />
+    <input value="{{ session_token }}" type="hidden" name="token" />
   </form>
 
   {% if payment_error %}
-  <div class="error"><p>{{ payment_error }}</p></div>
+  <div class="error">
+    <p>{{ payment_error }}</p>
+  </div>
   {% endif %}
 </div>
 
@@ -38,8 +38,7 @@
     <div class="form-group">
       <div class="form-input"><input name="aboutme" type="text" /></div>
     </div>
-    <input class="form-button" type="submit" value="Update"/>
+    <input class="form-button" type="submit" value="Update" />
   </form>
 </div>
-{% endif %}
-{% endblock %}
+{% endif %} {% endblock %}

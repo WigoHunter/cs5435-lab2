@@ -6,7 +6,7 @@ from bottle import (
     jinja2_template as template,
 )
 
-from app.models.session import logged_in
+from app.models.session import (logged_in, get_session_by_username)
 from app.models.user import get_user
 
 @get("/profile/<username:path>")
@@ -25,6 +25,7 @@ def profile(db, session, username):
         "profile",
         user=user,
         session_user=session_user,
+        session_token=session.get_id()
     )
 
 @post('/aboutme')
