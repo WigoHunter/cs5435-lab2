@@ -11,7 +11,6 @@ from app.models.user import (
 
 from app.models.session import (
     logged_in,
-    get_session_by_username
 )
 
 
